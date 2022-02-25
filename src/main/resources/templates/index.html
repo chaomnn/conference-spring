@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Добро пожаловать на конференцию!</h1>
+    <p sec:authorize="isAnonymous()"><a th:href="@{/login}">Войти</a></p>
+    <p sec:authorize="isAnonymous()"><a th:href="@{/registration}">Регистрация</a></p>
+    <div sec:authorize="hasRole('ROLE_SPEAKER')">
+        <p><a th:href="@{/speaker}">Список докладов</a></p>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <p><a th:href="@{/admin}">Список пользователей</a></p>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Выйти"/>
+        </form>
+    </div>
+
+    <h1>Расписание</h1>
+    <h3>Аудитории</h3>
+    <table>
+    <thead>
+        <th th:each="header: ${scheduleHeaders}" th:text="${header}"></th>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td th:each="roomSchedule: ${roomSchedules}" valign="top">
+                <ul th:each="schedule: ${roomSchedule.value}">
+                    <li th:text="${schedule.getTalk().getName()} + ' at ' + ${schedule.getTime()}"></li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+<!--    room1  room2-->
+<!--     t1-->
+<!--     t2-->
+
+</body>
+</html>

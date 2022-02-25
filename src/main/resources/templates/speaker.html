@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Доклады</title>
+</head>
+<body>
+<h1>Расписание докладов</h1>
+<h3>Добавить доклад</h3>
+<form th:action="@{/speaker/add}" method="post">
+    <table border="1px">
+        <tr>
+            <td>
+                <label>Название</label>
+                <input type="text" name="talkName">
+            </td>
+            <td>
+                <label>Аудитория</label>
+
+                <select th:name="roomId">
+                    <option th:each="r : ${rooms}" th:value="${r.id}" th:text="${r.name}"></option>
+                </select>
+            </td>
+            <td>
+                <label>Время</label>
+                <input type="time" name="time">
+            </td>
+
+            <th><input type="submit" value="добавить"/></th>
+
+        </tr>
+
+    </table>
+</form>
+<div class="with:80%">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="talk : ${allTalks}">
+            <th scope="row" th:text="${talk.id}">1</th>
+            <td th:text="${talk.name}"> </td>
+            <td><a th:href="@{speaker/delete/{id}(id=${talk.id})}">удалить</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/">Главная</a>
+</body>
+</html>

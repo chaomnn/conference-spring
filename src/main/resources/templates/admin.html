@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Пользователи</title>
+</head>
+<body>
+<h1>Список пользователей</h1>
+<div class="with:80%">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Пароль</th>
+            <th>Роли</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="user : ${allUsers}">
+            <th scope="row" th:text="${user.id}">1</th>
+            <td th:text="${user.username}"> </td>
+            <td th:text="${user.password}"> </td>
+            <td th:each="role : ${user.roles}" th:text="${role.name}"> </td>
+            <td><a th:href="@{admin/makeSpeaker/{username}(username=${user.username})}">спикер</a></td>
+            <td><a th:href="@{admin/delete/{id}(id=${user.id})}">удалить</a></td>
+<!--
+change of roles
+-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/">Главная</a>
+</body>
+</html>
