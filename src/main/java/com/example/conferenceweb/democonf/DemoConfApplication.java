@@ -33,15 +33,16 @@ public class DemoConfApplication {
 	@Autowired
 	private ScheduleService service;
 
-	//@PostConstruct
+	@PostConstruct
 	public void init() {
 		Room room = new Room();
+		Room room1 = new Room();
 
 		transactionTemplate.executeWithoutResult($ -> {
 			Talk talk = new Talk();
-			talk.setName("talk-1-1");
+			talk.setName("talk-1");
 
-			room.setName(1);
+			room.setName(100);
 
 			entityManager.persist(talk);
 			entityManager.persist(room);
@@ -58,23 +59,6 @@ public class DemoConfApplication {
 			}
 		});
 
-		transactionTemplate.executeWithoutResult($ -> {
-			Talk talk = new Talk();
-			talk.setName("talk-1-2");
-
-			entityManager.persist(talk);
-
-			Schedule schedule = new Schedule();
-			schedule.setTalk(talk);
-			schedule.setRoom(room);
-			schedule.setTime(LocalTime.now().plusMinutes(30));
-
-			try {
-				service.schedule(schedule);
-			} catch (ScheduleConflictException e) {
-				e.printStackTrace();
-			}
-		});
 
 		transactionTemplate.executeWithoutResult($ -> {
 			Talk talk = new Talk();
@@ -82,7 +66,6 @@ public class DemoConfApplication {
 
 			entityManager.persist(talk);
 
-			Room room1 = new Room();
 			room1.setName(2);
 
 			entityManager.persist(room1);

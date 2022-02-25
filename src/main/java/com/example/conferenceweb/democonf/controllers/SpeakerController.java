@@ -37,7 +37,6 @@ public class SpeakerController {
     @RequestMapping("/speaker/delete/{id}")
     public String deleteTalk(@PathVariable Long id) {
         scheduleService.delete(id);
-        //talkService.delete(id);
         return "redirect:/speaker";
     }
 
