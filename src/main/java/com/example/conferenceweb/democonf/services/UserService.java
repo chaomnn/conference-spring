@@ -44,16 +44,6 @@ public class UserService implements UserDetailsService {
             return null;
         }
 
-/*        Optional<Role> roleOptional = roleRepository.findByName("ROLE_USER");
-        if (!roleOptional.isPresent()) {
-            Role role = new Role();
-            role.setName("ROLE_USER");
-
-            user.setRoles(Collections.singleton(roleRepository.save(role)));
-        } else {
-            roleOptional.ifPresent(role -> user.setRoles(Collections.singleton(role)));
-        }*/
-
         Optional<Role> roleOptional = roleRepository.findByName("ROLE_LISTENER");
         if (!roleOptional.isPresent()) {
             Role role = new Role();

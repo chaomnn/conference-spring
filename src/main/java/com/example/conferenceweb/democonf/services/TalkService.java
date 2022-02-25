@@ -26,5 +26,4 @@ public class TalkService {
         talkRepository.deleteById(id);
     }
 
-    public void setTime() {}
 }

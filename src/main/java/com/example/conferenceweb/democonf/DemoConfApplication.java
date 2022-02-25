@@ -33,7 +33,7 @@ public class DemoConfApplication {
 	@Autowired
 	private ScheduleService service;
 
-	@PostConstruct
+	//@PostConstruct
 	public void init() {
 		Room room = new Room();
 		Room room1 = new Room();
